@@ -170,6 +170,57 @@
         .acceptance-screen .amount {
             color: #667eea;
         }
+
+        .tip-section {
+            margin: 30px 0;
+        }
+
+        .tip-label {
+            color: #333;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .tip-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tip-button {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 70px;
+        }
+
+        .tip-button:hover {
+            background: #f0f0ff;
+        }
+
+        .tip-button.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .amount-breakdown {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .tip-amount {
+            color: #4caf50;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -180,10 +231,33 @@
         <h4>*Bardzo INTENSYWNE Lokowanie KAPITALU</h4>
         
         <div class="payment-info">
-            <p>Kwota do zapłaty:</p>
+            <p>Kwota podstawowa:</p>
         </div>
         
-        <div class="amount">
+        <div class="amount" id="baseAmount">
+            100,00 <span class="currency">PLN</span>
+        </div>
+
+        <div class="tip-section">
+            <div class="tip-label">Napiwek:</div>
+            <div class="tip-buttons">
+                <button class="tip-button active" onclick="selectTip(0)">0%</button>
+                <button class="tip-button" onclick="selectTip(10)">10%</button>
+                <button class="tip-button" onclick="selectTip(15)">15%</button>
+                <button class="tip-button" onclick="selectTip(50)">50%</button>
+                <button class="tip-button" onclick="selectTip(100)">100%</button>
+            </div>
+            <div class="amount-breakdown">
+                <span>Napiwek: </span>
+                <span class="tip-amount" id="tipAmount">0,00 PLN</span>
+            </div>
+        </div>
+
+        <div class="payment-info">
+            <p>Łączna kwota do zapłaty:</p>
+        </div>
+        
+        <div class="amount" id="totalAmount">
             100,00 <span class="currency">PLN</span>
         </div>
         
@@ -200,15 +274,25 @@
         
         <h1>Płatność zaakceptowana</h1>
         
-        <div class="amount">
+        <div class="amount" id="confirmationTotal">
             100,00 <span class="currency">PLN</span>
         </div>
         
         <div class="divider"></div>
-        
+
         <div class="info-box">
-            <div class="info-label">Zapłacono</div>
-            <div class="info-value">100,00 PLN</div>
+            <div class="info-label">Kwota podstawowa</div>
+            <div class="info-value" id="confirmationBase">100,00 PLN</div>
+        </div>
+
+        <div class="info-box" id="confirmationTipBox" style="margin-top: 15px;">
+            <div class="info-label">Napiwek</div>
+            <div class="info-value" id="confirmationTip">0,00 PLN</div>
+        </div>
+        
+        <div class="info-box" style="margin-top: 15px; border-left: 4px solid #667eea;">
+            <div class="info-label">Łącznie zapłacono</div>
+            <div class="info-value" id="confirmationTotalValue">100,00 PLN</div>
         </div>
         
         <div class="footer">
@@ -218,7 +302,42 @@
     </div>
 
     <script>
+        const BASE_AMOUNT = 100.00;
+        let currentTipPercentage = 0;
+        let currentTipAmount = 0;
+
+        function formatAmount(amount) {
+            return amount.toFixed(2).replace('.', ',');
+        }
+
+        function selectTip(percentage) {
+            // Remove active class from all buttons
+            document.querySelectorAll('.tip-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Calculate tip
+            currentTipPercentage = percentage;
+            currentTipAmount = BASE_AMOUNT * (percentage / 100);
+            const totalAmount = BASE_AMOUNT + currentTipAmount;
+            
+            // Update displays
+            document.getElementById('tipAmount').textContent = formatAmount(currentTipAmount) + ' PLN';
+            document.getElementById('totalAmount').innerHTML = formatAmount(totalAmount) + ' <span class="currency">PLN</span>';
+        }
+
         function acceptPayment() {
+            const totalAmount = BASE_AMOUNT + currentTipAmount;
+            
+            // Update confirmation screen
+            document.getElementById('confirmationBase').textContent = formatAmount(BASE_AMOUNT) + ' PLN';
+            document.getElementById('confirmationTip').textContent = formatAmount(currentTipAmount) + ' PLN';
+            document.getElementById('confirmationTotal').innerHTML = formatAmount(totalAmount) + ' <span class="currency">PLN</span>';
+            document.getElementById('confirmationTotalValue').textContent = formatAmount(totalAmount) + ' PLN';
+            
             // Hide acceptance screen
             document.getElementById('acceptanceScreen').classList.add('hidden');
             
