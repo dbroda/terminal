@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+
+        // Automatyczne wysłanie sygnału do Home Assistanta po załadowaniu strony
+
+        fetch('https://lfzrrlfxubqewu3iuahugqqtqgujyfem.ui.nabu.casa/api/webhook/domi_terminal_1', {
+
+            method: 'GET',
+            mode: 'no-cors'
+        });
+
+    </script>
     <title>Potwierdzenie płatności</title>
     <style>
         * {
@@ -150,17 +161,7 @@
         <div class="footer">
             Potwierdzenie płatności zostało wysłane na Twój adres e-mail
         </div>
-        <script>
-
-        // Automatyczne wysłanie sygnału do Home Assistanta po załadowaniu strony
-
-        fetch('https://lfzrrlfxubqewu3iuahugqqtqgujyfem.ui.nabu.casa/api/webhook/domi_terminal_1', {
-
-            method: 'GET'
-
-        });
-
-    </script>
+    
     </div>
 </body>
 </html>
