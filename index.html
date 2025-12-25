@@ -3,18 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-
-        // Automatyczne wysłanie sygnału do Home Assistanta po załadowaniu strony
-
-        fetch('https://lfzrrlfxubqewu3iuahugqqtqgujyfem.ui.nabu.casa/api/webhook/domi_terminal_1', {
-
-            method: 'GET',
-            mode: 'no-cors'
-        });
-
-    </script>
-    <title>Potwierdzenie płatności</title>
+    <title>Platnosci BILK - Bardzo INTENSYWNE Lokowanie KAPITALU</title>
     <style>
         * {
             margin: 0;
@@ -137,10 +126,74 @@
             margin-bottom: 20px;
             letter-spacing: 2px;
         }
+
+        .payment-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            padding: 20px 60px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 30px;
+        }
+
+        .payment-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .payment-button:active {
+            transform: translateY(0);
+        }
+
+        .payment-info {
+            font-size: 18px;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .acceptance-screen h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .acceptance-screen .amount {
+            color: #667eea;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Acceptance Screen (shown first) -->
+    <div class="container acceptance-screen" id="acceptanceScreen">
+        <div class="bank-logo">PLATNOSCI BILK</div>
+        
+        <h1>Bardzo INTENSYWNE Lokowanie KAPITALU</h1>
+        
+        <div class="payment-info">
+            <p>Kwota do zapłaty:</p>
+        </div>
+        
+        <div class="amount">
+            100,00 <span class="currency">PLN</span>
+        </div>
+        
+        <button class="payment-button" onclick="acceptPayment()">
+            Akceptuj płatność
+        </button>
+    </div>
+
+    <!-- Confirmation Screen (shown after button click) -->
+    <div class="container hidden" id="confirmationScreen">
         <div class="bank-logo">TERMINAL BANK</div>
         
         <div class="checkmark"></div>
@@ -163,5 +216,21 @@
         </div>
     
     </div>
+
+    <script>
+        function acceptPayment() {
+            // Hide acceptance screen
+            document.getElementById('acceptanceScreen').classList.add('hidden');
+            
+            // Show confirmation screen
+            document.getElementById('confirmationScreen').classList.remove('hidden');
+            
+            // Send webhook to Home Assistant
+            fetch('https://lfzrrlfxubqewu3iuahugqqtqgujyfem.ui.nabu.casa/api/webhook/domi_terminal_1', {
+                method: 'GET',
+                mode: 'no-cors'
+            });
+        }
+    </script>
 </body>
 </html>
