@@ -241,11 +241,11 @@
         <div class="tip-section">
             <div class="tip-label">Napiwek:</div>
             <div class="tip-buttons">
-                <button class="tip-button active" onclick="selectTip(0)">0%</button>
-                <button class="tip-button" onclick="selectTip(10)">10%</button>
-                <button class="tip-button" onclick="selectTip(15)">15%</button>
-                <button class="tip-button" onclick="selectTip(50)">50%</button>
-                <button class="tip-button" onclick="selectTip(100)">100%</button>
+                <button class="tip-button active" onclick="selectTip(0, this)">0%</button>
+                <button class="tip-button" onclick="selectTip(10, this)">10%</button>
+                <button class="tip-button" onclick="selectTip(15, this)">15%</button>
+                <button class="tip-button" onclick="selectTip(50, this)">50%</button>
+                <button class="tip-button" onclick="selectTip(100, this)">100%</button>
             </div>
             <div class="amount-breakdown">
                 <span>Napiwek: </span>
@@ -310,14 +310,14 @@
             return amount.toFixed(2).replace('.', ',');
         }
 
-        function selectTip(percentage) {
+        function selectTip(percentage, button) {
             // Remove active class from all buttons
             document.querySelectorAll('.tip-button').forEach(btn => {
                 btn.classList.remove('active');
             });
             
             // Add active class to clicked button
-            event.target.classList.add('active');
+            button.classList.add('active');
             
             // Calculate tip
             currentTipPercentage = percentage;
