@@ -140,6 +140,9 @@
             box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
             margin-top: 30px;
+            position: sticky;
+            bottom: 20px;
+            z-index: 100;
         }
 
         .payment-button:hover {
@@ -235,7 +238,7 @@
         </div>
         
         <div class="amount" id="baseAmount">
-            100,00 <span class="currency">PLN</span>
+            75,00 <span class="currency">PLN</span>
         </div>
 
         <div class="tip-section">
@@ -246,6 +249,7 @@
                 <button class="tip-button" onclick="selectTip(15, this)">15%</button>
                 <button class="tip-button" onclick="selectTip(50, this)">50%</button>
                 <button class="tip-button" onclick="selectTip(100, this)">100%</button>
+                <button class="tip-button" onclick="selectTip(2137, this)">2137%</button>
             </div>
             <div class="amount-breakdown">
                 <span>Napiwek: </span>
@@ -258,7 +262,7 @@
         </div>
         
         <div class="amount" id="totalAmount">
-            100,00 <span class="currency">PLN</span>
+            75,00 <span class="currency">PLN</span>
         </div>
         
         <button class="payment-button" onclick="acceptPayment()">
@@ -275,14 +279,14 @@
         <h1>Płatność zaakceptowana</h1>
         
         <div class="amount" id="confirmationTotal">
-            100,00 <span class="currency">PLN</span>
+            75,00 <span class="currency">PLN</span>
         </div>
         
         <div class="divider"></div>
 
         <div class="info-box">
             <div class="info-label">Kwota podstawowa</div>
-            <div class="info-value" id="confirmationBase">100,00 PLN</div>
+            <div class="info-value" id="confirmationBase">75,00 PLN</div>
         </div>
 
         <div class="info-box" id="confirmationTipBox" style="margin-top: 15px;">
@@ -292,7 +296,7 @@
         
         <div class="info-box" style="margin-top: 15px; border-left: 4px solid #667eea;">
             <div class="info-label">Łącznie zapłacono</div>
-            <div class="info-value" id="confirmationTotalValue">100,00 PLN</div>
+            <div class="info-value" id="confirmationTotalValue">75,00 PLN</div>
         </div>
         
         <div class="footer">
@@ -302,7 +306,7 @@
     </div>
 
     <script>
-        const BASE_AMOUNT = 100.00;
+        const BASE_AMOUNT = 75.00;
         let currentTipAmount = 0;
 
         function formatAmount(amount) {
